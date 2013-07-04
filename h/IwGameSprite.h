@@ -36,7 +36,7 @@ protected:
 	int						Width, Height;			// Destination width and height (used to represent the visible extents of the sprite on screen)
 	CIwFVec2				Position;				// Position of the sprite
 	float					Angle;					// Rotation of sprite (IW_ANGLE_2PI = 360 degrees)
-	iwfixed					Scale;					// Scale of sprite (IW_GEOM_ONE = 1.0)
+	float					Scale;					// Scale of sprite (IW_GEOM_ONE = 1.0)
 	CIwColour				Colour;					// Colour of sprite
 	bool					Visible;				// Sprites visible state
 	bool					Pooled;					// Tells system if we belong to a sprite pool or not
@@ -89,12 +89,14 @@ public:
     
     void		setScale(iwfixed scale)
 	{
-		Scale = scale;
+		//Scale = scale;
+        Scale = (scale/IW_GEOM_ONE);
 		TransformDirty = true;
 	}
 	void		setScale(float scale)
 	{
-		Scale = (iwfixed)(scale * IW_GEOM_ONE);
+		//Scale = (iwfixed)(scale * IW_GEOM_ONE);
+        Scale = scale;
 		TransformDirty = true;
 	}
 	iwfixed		getScale() const			{ return Scale; }
