@@ -67,8 +67,13 @@ protected:
 	int							NumAdsVisible;		// number of ads visible
 	bool						Visible;			// Ad visibility
 	bool						Looped;				// Loops animations if true
-	CIwGameAds::eAdProvider		AdProvider;			// Ad provider used for automated ad collection
+	CIwGameAds::eAdProvider		AdProvider;			// Ad provider used for automated ad collection'
 public:
+    void                        setAndroidAppID(const char* id)     { IW_GAME_ADS->setAndroidAppID(id); }
+    void                        setWP8AppID(const char* id)         { IW_GAME_ADS->setWP8AppID(id); }
+    void                        setBBAppID(const char* id)          { IW_GAME_ADS->setBBAppID(id);}
+    void                        setIOSAppID(const char* id)         { IW_GAME_ADS->setIOSAppID(id);}
+
 	void						setVisible(bool visible)					{ Visible = visible; }
 	bool						isVisible() const							{ return Visible; }
 	void						setVisible(int index, bool visible)			{ AdData[index].Visible = visible; }
