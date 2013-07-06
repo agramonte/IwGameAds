@@ -164,8 +164,12 @@ public:
 	// Properties
 protected:
 	CIwGameString			Version;					// Protocol version string (for inner-active)
-	CIwGameString			ApplicationID;				// ID of the application thats making the request (you will need to be assigned this from your ad provider)
-	CIwGameString			OtherID;					// Extra ID information
+	CIwGameString			ApplicationID;				// ID of the application thats making the request. Default
+	CIwGameString           AndroidAppID;               //ID of the application that is making the request. Android.
+    CIwGameString           WP8AppID;                   //ID of the application that is making the request. Windows 8.
+    CIwGameString           IOSAppID;                   //ID of the application that is making the request. Apple iOS.
+    CIwGameString           BBAppID;                    //ID of the application that is making the request. QNX
+    CIwGameString			OtherID;					// Extra ID information
 	unsigned int			UDID;						// Unique ID of the device (used to identify device type, language and approx location to deliver more appropriate ads)
 	int						Width, Height;				// Dimensions of device (used to collect more appropriate sized ads)
 	eIwGameAdsPortalType	PortalType;					// Type of portal to collect ads from
@@ -192,7 +196,15 @@ public:
 	void					setVersion(const char* version)		{ Version = version; }
 	CIwGameString&			getVersion()						{ return Version; }
 	void					setApplicationID(const char* id)	{ ApplicationID = id; }
+    void					setAndroidAppID(const char* id)     { AndroidAppID = id; }
+    void					setWP8AppID(const char* id)         { WP8AppID = id; }
+    void					setBBAppID(const char* id)          { BBAppID = id; }
+    void					setIOSAppID(const char* id)         { IOSAppID = id; }
 	CIwGameString&			getApplicationID()					{ return ApplicationID; }
+    CIwGameString&			getAndroidAppID()					{ return AndroidAppID; }
+    CIwGameString&			getWP8AppID()                       { return WP8AppID; }
+    CIwGameString&			getBBAppID()                        { return BBAppID; }
+    CIwGameString&			getIOSAppID()                       { return IOSAppID; }
 	void					setOtherID(const char* id)			{ OtherID = id; }
 	CIwGameString&			getOtherID()						{ return OtherID; }
 	void					setUDID(unsigned int udid)			{ UDID = udid; }

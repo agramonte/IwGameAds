@@ -27,10 +27,12 @@ struct CIwGameAdsParty
 {
 	CIwGameAds::eAdProvider	Provider;					// Ad provider
 	CIwGameString			ApplicationID;				// ID of the application thats making the request (you will need to be assigned this from inner-active)
-	CIwGameString			OtherID;					// Extra ID information
+    CIwGameString			OtherID;					// Extra ID information
 	CIwGameString			ExtraInfo;					// Pass in any extra pareneters as name vakue pairs, e.g. &city=london&ad_unit=1 (optional)
-
-	CIwGameAdsParty() {}
+    CIwGameString           AndroidAppID;               //ID of the application that is making the request. Android.
+    CIwGameString           WP8AppID;                   //ID of the application that is making the request. Windows 8.
+    CIwGameString           IOSAppID;                   //ID of the application that is making the request. Apple iOS.
+    CIwGameString           BBAppID;                    //ID of the application that is making the request. QNX	CIwGameAdsParty() {}
 	~CIwGameAdsParty()
 	{
 	}

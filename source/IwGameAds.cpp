@@ -215,13 +215,46 @@ bool CIwGameAds::RequestAd(eAdProvider provider, bool reset_mediator)
 		CIwGameAdsParty* party = Mediator->getNextAdParty();
 		if (party != NULL)
 		{
-			provider = party->Provider;
-			ApplicationID = party->ApplicationID;
+			provider = party-> Provider;
+			ApplicationID = party-> ApplicationID;
+            IOSAppID = party-> IOSAppID;
+            AndroidAppID = party -> AndroidAppID;
+            BBAppID = party -> BBAppID;
+            WP8AppID = party -> WP8AppID;
+            
 			OtherID = party->OtherID;
 			ExtraInfo = party->ExtraInfo;
 		}
+        
 	}
-
+    
+    switch (OperatingSystem)
+	{
+        case  S3E_OS_ID_OSX:
+            if (!IOSAppID.IsEmpty()) {
+                ApplicationID = IOSAppID;
+            }
+            break;
+        case  S3E_OS_ID_ANDROID:
+            if (!AndroidAppID.IsEmpty()) {
+                ApplicationID = AndroidAppID;
+            }
+            break;
+        case  S3E_OS_ID_QNX:
+            if (!BBAppID.IsEmpty())
+            {
+                ApplicationID = BBAppID;
+            }
+            break;
+        case  S3E_OS_ID_WP8:
+            if (!WP8AppID.IsEmpty())
+            {
+            ApplicationID = WP8AppID;
+            }
+            break;
+    }
+    
+    
 	// Reset error
 	Error = ErrorNone;
 	ErrorString = "";
@@ -562,7 +595,7 @@ void CIwGameAds::ErrorFromResponse(const char* error, int error_len)
 
 	for (int t = 0; t < 5; t++)
 	{
-		if (ResponseCodes[t] == hash)
+		if (int(ResponseCodes[t]) == hash)
 		{
 			Error = (eIwGameAdsError)t;
 			return;
@@ -725,6 +758,8 @@ bool CIwGameAds::RequestAdInnerActive()
 	{
 		RequestURI += ExtraInfo;
 	}
+    
+    
 
 	AdRequest.setGET();
 	AdRequest.setURI(RequestURI.c_str());
