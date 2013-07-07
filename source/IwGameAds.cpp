@@ -46,6 +46,9 @@ int	CIwGameAds::PortalIDs[] =
 	1042,	// Mobile web text
 };
 
+
+//
+
 //
 // Server response codes
 //
@@ -126,6 +129,7 @@ bool CIwGameAds::Init()
 	UserGender = GenderInvalid;
 	AdAvailable = false;
 	UserAgent = IW_GAME_HTTP_MANAGER->getUserAgent();
+    SlotSize = sDefault;
 
 	Version = "Sm2m-1.5.3";
 
@@ -187,6 +191,14 @@ void CIwGameAds::Update()
 			}
 		}
 	}
+}
+
+
+bool CIwGameAds::RequestAd(eAdProvider provider, eSlotSize slotSize, bool reset_mediator)
+{
+    CIwGameAds::SlotSize = slotSize;
+    return CIwGameAds::RequestAd(provider, reset_mediator);
+    
 }
 
 bool CIwGameAds::RequestAd(eAdProvider provider, bool reset_mediator)
@@ -280,10 +292,10 @@ bool CIwGameAds::RequestAd(eAdProvider provider, bool reset_mediator)
 	case AdModa:
 		RequestAdAdModa();
 		break;
-#if defined(_AD_DO_NOT_USE_)
 	case InMobi:
 		RequestAdInMobi();
-		break;
+        break;
+#if defined(_AD_DO_NOT_USE_)
 	case MobClix:
 		RequestAdMobClix();
 		break;
@@ -754,6 +766,48 @@ bool CIwGameAds::RequestAdInnerActive()
 		RequestURI += "&k=";
 		RequestURI += UserKeywords;
 	}
+    if (!SlotSize == 0) {
+        CIwGameString width;
+        CIwGameString height;
+        
+        switch (SlotSize) {
+            case 2:
+                width = "168";
+                height = "28";
+                break;
+            case 3:
+                width = "216";
+                height = "36";
+                break;
+            case 4:
+                width = "300";
+                height = "50";
+                break;
+            case 10:
+                width = "300";
+                height = "250";
+                break;
+            case 11:
+                width = "728";
+                height = "90";
+                break;
+            case 14:
+                width = "320";
+                height = "480";
+                break;
+            case 15:
+                width = "320";
+                height = "50";
+                break;
+            default:
+                break;
+        }
+    
+        RequestURI += "&ow=";
+        RequestURI += width;
+        RequestURI += "&oh=";
+        RequestURI += height;
+    }
 	if (!ExtraInfo.IsEmpty())
 	{
 		RequestURI += ExtraInfo;
@@ -870,6 +924,8 @@ bool CIwGameAds::RequestAdInMobi()
 	// Build M2M request URI string
 	RequestURI = "http://w.inmobi.com/showad.asm";				// Live
 //	RequestURI = "http://i.w.sandbox.inmobi.com/showad.asm";	// Test
+    
+    int slotSize = (int)SlotSize;
 
 	CIwGameString body;
 	CIwGameString urlencoded;
@@ -890,7 +946,9 @@ bool CIwGameAds::RequestAdInMobi()
 	body += urlencoded;
 //	body += "&d-netType=wifi";
 	body += "&d-netType=carrier";
-	body += "&mk-version=pr-spec-atata-20090521";
+    body += "&mk-ad-slot=";
+    body += CIwGameString(slotSize);
+	body += "&mk-version=pr-SPEC-CTATA-20130111";
 	if (UserAge != 0)
 	{
 		body += "&u-age=";

@@ -110,6 +110,7 @@ bool CIwGameAdsView::Init(const char* id)
 	PrevTappedAd = NULL;
 	NumAdsVisible = 1;
 	Visible = true;
+    SlotSize = CIwGameAds::sDefault;
 
 	CIwGameAds::Create();
 	IW_GAME_ADS->Init();
@@ -242,7 +243,7 @@ void CIwGameAdsView::Update(float dt)
 	{
 		if (NewAdTimer.HasTimedOut())
 		{
-			IW_GAME_ADS->RequestAd(AdProvider);
+			IW_GAME_ADS->RequestAd(AdProvider, SlotSize);
 			NewAdTimer.setDuration(NewAdInterval * 1000);
 		}
 	}
@@ -275,7 +276,7 @@ void CIwGameAdsView::RequestNewAd(CIwGameAds::eAdProvider ad_provider, bool text
 		return;
 
 	IW_GAME_ADS->setTextAds(text_ads);
-	IW_GAME_ADS->RequestAd(ad_provider);
+	IW_GAME_ADS->RequestAd(ad_provider, SlotSize);
 }
 
 void CIwGameAdsView::ResetAnims(CIwGameAdsViewData* data)

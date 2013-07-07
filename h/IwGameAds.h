@@ -98,9 +98,9 @@ public:
 		VServ, 
 		Mojiva,
 		MillennialMedia, 
-		AdModa, 
+		AdModa,
+        InMobi,
 #if defined(_AD_DO_NOT_USE_)
-		InMobi,
 		MobClix,
 		MobFox,
 		Madvertise,
@@ -108,6 +108,18 @@ public:
 		BuzzCity, 
 #endif	// _AD_DO_NOT_USE_
 	};
+    
+    enum eSlotSize
+    {
+        sDefault = 0,
+        s168x28 = 2,
+        s216x36 = 3,
+        s300x50 = 4,
+        s300x250 = 10,
+        s728x90 = 11,
+        s320x480 = 14,
+        s320x50 = 15,
+    };
 
 	enum eIwGameAdsPortalType
 	{
@@ -165,10 +177,10 @@ public:
 protected:
 	CIwGameString			Version;					// Protocol version string (for inner-active)
 	CIwGameString			ApplicationID;				// ID of the application thats making the request. Default
-	CIwGameString           AndroidAppID;               //ID of the application that is making the request. Android.
-    CIwGameString           WP8AppID;                   //ID of the application that is making the request. Windows 8.
-    CIwGameString           IOSAppID;                   //ID of the application that is making the request. Apple iOS.
-    CIwGameString           BBAppID;                    //ID of the application that is making the request. QNX
+	CIwGameString           AndroidAppID;               //ID of the application that is making the request. Android. (optional)
+    CIwGameString           WP8AppID;                   //ID of the application that is making the request. Windows 8.(optional)
+    CIwGameString           IOSAppID;                   //ID of the application that is making the request. Apple iOS.(optional)
+    CIwGameString           BBAppID;                    //ID of the application that is making the request. QNX (optional)
     CIwGameString			OtherID;					// Extra ID information
 	unsigned int			UDID;						// Unique ID of the device (used to identify device type, language and approx location to deliver more appropriate ads)
 	int						Width, Height;				// Dimensions of device (used to collect more appropriate sized ads)
@@ -191,6 +203,7 @@ protected:
 	CIwGameString			ErrorString;				// Human readable error string
 	CIwGameAd				AdInfo;						// The returned ad info
 	CIwGameAdsMediator*		Mediator;					// Ad mediator (optional)
+    eSlotSize               SlotSize;                   // Ad slot size.
 
 public:
 	void					setVersion(const char* version)		{ Version = version; }
@@ -298,8 +311,8 @@ public:
 	void					Release();											// Releases data used by the Ads system
 	void					Update();											// Update ads
 	bool					RequestAd(eAdProvider provider, bool reset_mediator = true);	// Requests an ad from the specified ad provider
-	
-	// Utility
+	bool					RequestAd(eAdProvider provider, eSlotSize slotSize, bool reset_mediator = true);	// Requests an ad from the specified ad provider
+    // Utility
 	eIwGameAdsPortalType	FindPortalType(bool text_ad = false);				// Auto find portal type from OS type and ad type
 
 	// Internal

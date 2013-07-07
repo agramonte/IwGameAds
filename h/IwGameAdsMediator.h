@@ -33,6 +33,7 @@ struct CIwGameAdsParty
     CIwGameString           WP8AppID;                   //ID of the application that is making the request. Windows 8.
     CIwGameString           IOSAppID;                   //ID of the application that is making the request. Apple iOS.
     CIwGameString           BBAppID;                    //ID of the application that is making the request. QNX	CIwGameAdsParty() {}
+    CIwGameAds::eSlotSize   SlotSize;                   //SlotSize
 	~CIwGameAdsParty()
 	{
 	}
