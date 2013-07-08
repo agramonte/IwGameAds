@@ -4,7 +4,7 @@ IwGameAds
 Current status:
 Working on Marmalade: 6.3.1
 
-Tested Ad Networks: MMedia, Inner-Active.
+Tested Ad Networks: MMedia, Inner-Active, InMobi.
 
 I have been using the Pocketters Limited iwgameads-sdk for a while now. I tend to upgrade my Marmalade sdk as soon as the new version comes out (or as soon as I can). As of version 6.2.x of Marmalade due to the changes to the 2D engine, working with iwgameads-sdk required declaring a directive in the MBK to use the non-float methods. 
 
